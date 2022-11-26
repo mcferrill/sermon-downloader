@@ -1,5 +1,18 @@
 #!/usr/bin/bash
 
+outputfile(){
+  name=out
+  if [[ -e $name.iso || -L $name.iso ]] ; then
+    i=0
+    while [[ -e $name-$i.iso || -L $name-$i.iso ]] ; do
+      let i++
+    done
+    name=$name-$i
+  fi
+  touch -- "$name".iso
+  echo "$name.iso"
+}
+
 # makeiso URL1 URL2 ISO
 makeiso(){
   tmp=`mktemp -d`
@@ -18,10 +31,25 @@ makeiso(){
   dvdauthor -o $tmp/dvd/ -T
 
   # Create iso
-  mkisofs -dvd-video -o $3 $tmp/dvd/
+  mkisofs -dvd-video -o $(outputfile) $tmp/dvd/
 
   rm -rf $tmp
 }
 
-set -x
-makeiso https://www.youtube.com/watch?v=TR5nd0bjb_I https://www.youtube.com/watch?v=zoyZ1Kga-YI out.iso
+# Take two files at a time and write DVDs
+file1=0
+for url in $(cat $1); do
+  if [ $file1 == 0 ]
+  then
+    file1=$url
+  else
+    makeiso $file1 $url
+    file1=0
+  fi
+done
+
+# Write last file
+if [ $file1 ]
+then
+  makeiso $file1 ""
+fi

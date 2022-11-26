@@ -1,7 +1,7 @@
 
 # Sermon Downloader
 
-Utility to create DVD ISOs with captions. Current version takes 2 youtube URLs and outputs an ISO suitable to burn to disc.
+Utility to create DVD ISOs with captions. Takes a file with a list of youtube URLs and outputs a series of ISOs (two videos per image).
 
 ## Dependencies
 
