@@ -1,4 +1,6 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 outputfile(){
   name=out
@@ -16,6 +18,9 @@ outputfile(){
 # makeiso URL1 URL2 ISO
 makeiso(){
   tmp=`mktemp -d`
+
+  # Can be useful for testing. Make sure you disable the rm -rf $tmp at the end of the function.
+  # tmp=$(pwd)
 
   # Download .mp4s with captions embedded
   yt-dlp "$1" -f 22 --write-auto-subs --embed-subs -o $tmp/vid1.mp4
