@@ -17,7 +17,8 @@ outputfile(){
 
 # makeiso URL1 URL2 ISO
 makeiso(){
-  tmp=`mktemp -d`
+  # tmp=`mktemp -d`
+  tmp="${pwd}/tmp"
 
   # Can be useful for testing. Make sure you disable the rm -rf $tmp at the end of the function.
   # tmp=$(pwd)
