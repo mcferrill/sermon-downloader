@@ -24,8 +24,8 @@ makeiso(){
   # tmp=$(pwd)
 
   # Download .mp4s with captions embedded
-  yt-dlp "$1" -f b --write-auto-subs --embed-subs -o $tmp/vid1.mp4
-  yt-dlp "$2" -f b --write-auto-subs --embed-subs -o $tmp/vid2.mp4
+  ./yt-dlp "$1" -f b --write-auto-subs --embed-subs -o $tmp/vid1.mp4
+  ./yt-dlp "$2" -f b --write-auto-subs --embed-subs -o $tmp/vid2.mp4
 
   # Convert to .mpg with rendered subtitles
   ffmpeg -i $tmp/vid1.mp4 -vf subtitles=$tmp/vid1.mp4 -target ntsc-dvd $tmp/vid1.mpg
